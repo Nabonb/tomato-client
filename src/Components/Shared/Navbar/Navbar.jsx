@@ -53,7 +53,7 @@ const Navbar = () => {
             </ul>
           </div>
           <Link to={"/"}>
-            <img src={logo} alt="" />
+            <img className="w-28" src={logo} alt="" />
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
@@ -74,8 +74,8 @@ const Navbar = () => {
         </div>
         <div className="navbar-end flex gap-3">
           <div className="hidden md:flex gap-3">
-            <img src={search} alt="" />
-            <img src={basket} alt="" />
+            <img className="w-5 h-5" src={search} alt="" />
+            <img className="w-5 h-5" src={basket} alt="" />
           </div>
           <a className="btn">Button</a>
         </div>
