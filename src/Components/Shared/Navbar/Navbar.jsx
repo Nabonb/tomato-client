@@ -77,7 +77,7 @@ const Navbar = () => {
             <img className="w-5 h-5" src={search} alt="" />
             <img className="w-5 h-5" src={basket} alt="" />
           </div>
-          <a className="btn">Button</a>
+          <Link className="btn">Sign In</Link>
         </div>
       </div>
     </div>
