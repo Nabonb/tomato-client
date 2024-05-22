@@ -74,8 +74,8 @@ const Navbar = () => {
         </div>
         <div className="navbar-end flex gap-3">
           <div className="hidden md:flex gap-3">
-            <img className="w-5 h-5" src={search} alt="" />
-            <img className="w-5 h-5" src={basket} alt="" />
+            <Link><img className="w-5 h-5" src={search} alt="" /></Link>
+            <Link><img className="w-5 h-5" src={basket} alt="" /></Link>
           </div>
           <Link className="btn">Sign In</Link>
         </div>

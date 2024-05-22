@@ -5,7 +5,7 @@ const Banner = () => {
   return (
     <div className="relative">
       <img src={banner} alt="Banner" className="w-full h-auto" />
-      <div className="absolute inset-0 flex flex-col justify-center p-4 sm:p-3 md:p-10 lg:p-16 w-full bg-black bg-opacity-30">
+      <div className="absolute rounded-2xl inset-0 flex flex-col justify-center p-4 sm:p-3 md:p-10 lg:p-16 w-full bg-black bg-opacity-30">
         <div className="md:w-1/2">
           <h1 className="text-white text-base sm:text-lg md:text-2xl lg:text-4xl xl:text-5xl font-semibold md:py-4">
             Order Your <br /> favourite food here
