@@ -32,7 +32,7 @@ const SingleMenu = ({ label, icon: Icon, selected }) => {
   };
   return (
     <>
-      <div onClick={handleClick} className={`group border-b-2
+      <div onClick={handleClick}  className={`group border-b-2
     hover:text-neutral-800
     transition
     cursor-pointer ${

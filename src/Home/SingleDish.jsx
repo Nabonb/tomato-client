@@ -6,7 +6,9 @@ const SingleDish = ({ food }) => {
   const [count,setCount] = useState(0)
   console.log(count)
   return (
-    <div className="card bg-base-100 shadow-xl rounded-2xl">
+    <div className="card bg-base-100 shadow-xl rounded-2xl" data-aos="zoom-in-up"
+    data-aos-easing="ease-out-cubic"
+    data-aos-duration="1000">
       <figure className="relative">
         <img src={food.image} alt="Shoes" className="w-full rounded-2xl" />
 
