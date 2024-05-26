@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { assets } from "../assets/images/assets";
 
+
 const SingleDish = ({ food }) => {
   const [count,setCount] = useState(0)
-  console.log(count)
+
   return (
     <div className="card bg-base-100 shadow-xl rounded-2xl" data-aos="zoom-in-up"
     data-aos-easing="ease-out-cubic"
@@ -17,7 +18,7 @@ const SingleDish = ({ food }) => {
           <p className="text-white text-xl font-medium">{count}</p>
         </button>
       </figure>
-      <div className="card-body text-left">
+      <div className="card-body text-left"> 
         <div className="flex justify-between">
           <h2 className="card-title">{food.name}</h2>
           <div  className="flex items-center">

@@ -3,22 +3,27 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import qs from 'query-string'
 
 const SingleMenu = ({ label, icon: Icon, selected }) => {
-  // const [active, setActive] = useState(false);
-  const [params, setParams] = useSearchParams();
-  const value = params.get("category");
-  // console.log(params)
+  const [params] = useSearchParams();
+  const [activeCategory, setActiveCategory] = useState(false);
   const navigate = useNavigate();
+
   const handleClick = () => {
+    const newActiveCategory = !activeCategory; // Compute new activeCategory state
+    setActiveCategory(newActiveCategory);
+
     let currentQuery = {};
     if (params) {
       currentQuery = qs.parse(params.toString());
-      // console.log(currentQuery)
     }
-    const updatedQuery = {
-      ...currentQuery,
-      category: label,
-    };
-    // console.log(updatedQuery)
+
+    const updatedQuery = { ...currentQuery };
+
+    // Conditionally update or remove the category parameter
+    if (newActiveCategory) {
+      updatedQuery.category = label;
+    } else {
+      delete updatedQuery.category;
+    }
 
     const url = qs.stringifyUrl(
       {
@@ -27,7 +32,8 @@ const SingleMenu = ({ label, icon: Icon, selected }) => {
       },
       { skipNull: true }
     );
-    console.log(url)
+
+    console.log(url);
     navigate(url);
   };
   return (
