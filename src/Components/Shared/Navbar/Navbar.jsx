@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import logo from "../../../assets/images/logo.png";
 import basket from "../../../assets/images/basket_icon.png";
 import search from "../../../assets/images/search_icon.png";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../providers/AuthProvider";
+import Avatar from "./Avatar";
 
 const Navbar = () => {
-  // const [navModal, setNavModal] = useState(false);
-  // console.log(navModal)
+  const { user, logOut } = useContext(AuthContext);
+  const [openModal, setOpenModal] = useState(false);
+  console.log(openModal);
+
   return (
     <div className="mt-8 px-5 items-center flex justify-between">
       <div className="navbar bg-base-100">
@@ -30,7 +34,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-5xl"
             >
               <li>
                 <Link>Home</Link>
@@ -45,10 +49,14 @@ const Navbar = () => {
                 <Link>Contact Us</Link>
               </li>
               <li className="md:hidden flex flex-col gap-3">
-                <Link><img src={search} height={22} width={22} alt="" /></Link>
+                <Link>
+                  <img src={search} height={22} width={22} alt="" />
+                </Link>
               </li>
               <li className="md:hidden flex flex-col gap-3">
-                <Link><img src={basket} height={22} width={22} alt="" /></Link>
+                <Link>
+                  <img src={basket} height={22} width={22} alt="" />
+                </Link>
               </li>
             </ul>
           </div>
@@ -72,12 +80,73 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div className="navbar-end flex gap-3">
+        <div className="navbar-end flex gap-3 ">
           <div className="hidden md:flex gap-3">
-            <Link><img className="w-5 h-5" src={search} alt="" /></Link>
-            <Link><img className="w-5 h-5" src={basket} alt="" /></Link>
+            <Link>
+              <img className="w-5 h-5" src={search} alt="" />
+            </Link>
+            <Link>
+              <img className="w-5 h-5" src={basket} alt="" />
+            </Link>
           </div>
-          <Link className="btn">Sign In</Link>
+          <div
+            className="relative"
+            onClick={() => {
+              setOpenModal(!openModal);
+            }}
+          >
+            <Avatar></Avatar>
+            {openModal && (
+              <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[10vw] bg-white overflow-hidden right-0 top-12 text-sm z-10">
+                <div className="flex flex-col cursor-pointer">
+                  {user ? (
+                    <>
+                      <Link
+                        to="/"
+                        className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                      >
+                        Dashboard
+                      </Link>
+
+                      <div
+                        onClick={() => {
+                          logOut();
+                        }}
+                        className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
+                      >
+                        Logout
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        to="/login"
+                        className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                      >
+                        Login
+                      </Link>
+                      <Link
+                        to="/signup"
+                        className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                      >
+                        Sign Up
+                      </Link>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* {user ? (
+            <Link onClick={() => logOut()} to="/" className="btn">
+              Log Out
+            </Link>
+          ) : (
+            <Link to="/login" className="btn">
+              Log In
+            </Link>
+          )} */}
         </div>
       </div>
     </div>

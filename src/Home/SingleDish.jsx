@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { AiFillPlusCircle } from "react-icons/ai";
+import React, { useContext, useState } from "react";
 import { assets } from "../assets/images/assets";
+import { AuthContext } from "../providers/AuthProvider";
 
 const SingleDish = ({ food }) => {
-  const [itemCount, setItemCount] = useState(0);
+  const {cartItems, addToCart,removeFromCart} = useContext(AuthContext)
 
   return (
     <div
@@ -14,29 +14,23 @@ const SingleDish = ({ food }) => {
     >
       <figure className="relative">
         <img src={food.image} alt="Shoes" className="w-full rounded-2xl" />
-        {!itemCount ? (
+        {!cartItems[food._id] ? (
           <img
-            onClick={() => {
-              setItemCount((prev) => prev + 1);
-            }}
+            onClick={() => addToCart(food._id)}
             className="absolute bottom-10 right-10 flex justify-center items-center gap-3 cursor-pointer h-10 w-10"
             src={assets.add_icon_white}
           ></img>
         ) : (
-          <div className="absolute bottom-10 right-10 flex justify-center items-center gap-3">
+          <div className="absolute bottom-10 right-10 flex justify-center items-center gap-3 bg-white rounded-full p-2">
             <img
-              onClick={() => {
-                setItemCount((prev) => prev - 1);
-              }}
+              onClick={() => removeFromCart(food._id)}
               src={assets.remove_icon_red}
               alt=""
               className="cursor-pointer h-9 w-9"
             />
-            <p className="text-white text-xl font-medium">{itemCount}</p>
+            <p className="text-black text-xl font-medium">{cartItems[food._id]}</p>
             <img
-              onClick={() => {
-                setItemCount((prev) => prev + 1);
-              }}
+              onClick={() => addToCart(food._id)}
               src={assets.add_icon_green}
               alt=""
               className="cursor-pointer h-9 w-9"

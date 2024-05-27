@@ -19,8 +19,10 @@ const googleProvider = new GoogleAuthProvider()
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
+  console.log(user)
   const [loading, setLoading] = useState(true)
 
+  //this is for the user
   const createUser = (email, password) => {
     setLoading(true)
     return createUserWithEmailAndPassword(auth, email, password)
@@ -53,6 +55,26 @@ const AuthProvider = ({ children }) => {
     })
   }
 
+  //This is for food 
+  const [cartItems,setCartItems] = useState({})
+
+  const addToCart =(itemId)=>{
+    if(!cartItems[itemId]){
+      setCartItems((prev)=>({...prev,[itemId]:1}))
+    }
+    else{
+      setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}))
+    }
+  }
+
+  const removeFromCart = (itemId) =>{
+    setCartItems((prev)=>({...prev,[itemId]:prev[itemId]-1}))
+  }
+
+  useEffect(()=>{
+    console.log(cartItems)
+  },[cartItems])
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser)
@@ -74,6 +96,10 @@ const AuthProvider = ({ children }) => {
     resetPassword,
     logOut,
     updateUserProfile,
+    cartItems,
+    setCartItems,
+    addToCart,
+    removeFromCart
   }
 
   return (
