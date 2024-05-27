@@ -1,14 +1,35 @@
 import { Link } from 'react-router-dom'
-
+import { ImSpinner9 } from "react-icons/im";
 import { FcGoogle } from 'react-icons/fc'
+import { useContext } from 'react';
+import { AuthContext } from '../../providers/AuthProvider';
+import toast from 'react-hot-toast';
 
 const SignUp = () => {
+  const { user, loading, setLoading, createUser, signInWithGoogle } = useContext(AuthContext);
+
+
+
+
+// Handling Google Sign Up
+  const handleGoogleSignIn = () => {
+    signInWithGoogle().then((result) => {
+      console.log(result)
+      navigate('/')
+      toast.success("Sign Up Successfully")
+      setLoading(false)
+    }).catch(err=>{
+        console.log(err.message)
+        toast.error(err.message)
+        setLoading(false)
+    })
+  };
   return (
     <div className='flex justify-center items-center min-h-screen'>
       <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
         <div className='mb-8 text-center'>
           <h1 className='my-3 text-4xl font-bold'>Sign Up</h1>
-          <p className='text-sm text-gray-400'>Welcome to AirCNC</p>
+          <p className='text-sm text-gray-400'>Welcome to Tomato</p>
         </div>
         <form
           noValidate=''
@@ -77,7 +98,7 @@ const SignUp = () => {
               type='submit'
               className='bg-rose-500 w-full rounded-md py-3 text-white'
             >
-              Continue
+              {loading? <ImSpinner9 size={24} className="animate-spin mx-auto" /> : 'Continue'}
             </button>
           </div>
         </form>
@@ -88,7 +109,7 @@ const SignUp = () => {
           </p>
           <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
         </div>
-        <div className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'>
+        <div onClick={handleGoogleSignIn} className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'>
           <FcGoogle size={32} />
 
           <p>Continue with Google</p>

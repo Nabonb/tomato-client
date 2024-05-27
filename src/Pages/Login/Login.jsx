@@ -1,18 +1,39 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 import { ImSpinner9 } from "react-icons/im";
 
 const Login = () => {
-  const { user, loading, setLoading, createUser, signIn, signInWithGoogle } = useContext(AuthContext);
+  const { user, loading, setLoading, signIn, signInWithGoogle,resetPassword } = useContext(AuthContext);
   const navigate = useNavigate()
+  const emailRef = useRef()
 
+// Handling Normal Login 
+  const handleSubmit = (event) =>{
+    event.preventDefault()
+    const email = event.target.email.value
+    const password = event.target.password.value
+    console.log(email,password)
+    signIn(email,password).then((result) => {
+      console.log(result)
+      navigate('/')
+      toast.success("Logged In Successfully")
+      setLoading(false)
+    }).catch(err=>{
+        console.log(err.message)
+        toast.error(err.message)
+        setLoading(false)
+    })
+  } 
+
+// Handling Google Sign Up
   const handleGoogleSignIn = () => {
     signInWithGoogle().then((result) => {
       console.log(result)
       navigate('/')
+      toast.success("Sign Up Successfully")
       setLoading(false)
     }).catch(err=>{
         console.log(err.message)
@@ -20,6 +41,29 @@ const Login = () => {
         setLoading(false)
     })
   };
+
+// Handling Reset Password
+const handleResetPassword = () =>{
+  const email = emailRef.current.value
+  resetPassword(email).then(()=>{
+    toast.success('Please check your email for reset password', {
+      style: {
+        border: '1px solid #713200',
+        padding: '16px',
+        color: '#713200',
+      },
+      iconTheme: {
+        primary: '#713200',
+        secondary: '#FFFAEE',
+      },
+    })
+    setLoading(false)
+  }).catch(err=>{
+    console.log(err.message)
+    toast.error(err.message)
+    setLoading(false)
+})
+}
 
   return (
     <div className="flex justify-center items-center min-h-screen">
@@ -34,6 +78,7 @@ const Login = () => {
           noValidate=""
           action=""
           className="space-y-6 ng-untouched ng-pristine ng-valid"
+          onSubmit={handleSubmit}
         >
           <div className="space-y-4">
             <div>
@@ -41,6 +86,7 @@ const Login = () => {
                 Email address
               </label>
               <input
+              ref={emailRef}
                 type="email"
                 name="email"
                 id="email"
@@ -76,7 +122,7 @@ const Login = () => {
             </button>
           </div>
         </form>
-        <div className="space-y-1">
+        <div onClick={handleResetPassword} className="space-y-1">
           <button className="text-xs hover:underline hover:text-rose-500 text-gray-400">
             Forgot password?
           </button>
