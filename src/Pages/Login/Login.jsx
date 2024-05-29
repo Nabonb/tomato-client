@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useContext, useRef } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
@@ -9,6 +9,8 @@ const Login = () => {
   const { user, loading, setLoading, signIn, signInWithGoogle,resetPassword } = useContext(AuthContext);
   const navigate = useNavigate()
   const emailRef = useRef()
+  const location = useLocation()
+  const from = location.state?.from?.pathname || '/'
 
 // Handling Normal Login 
   const handleSubmit = (event) =>{
@@ -18,7 +20,7 @@ const Login = () => {
     console.log(email,password)
     signIn(email,password).then((result) => {
       console.log(result)
-      navigate('/')
+      navigate(from)
       toast.success("Logged In Successfully")
       setLoading(false)
     }).catch(err=>{
@@ -32,7 +34,7 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     signInWithGoogle().then((result) => {
       console.log(result)
-      navigate('/')
+      navigate(from)
       toast.success("Sign Up Successfully")
       setLoading(false)
     }).catch(err=>{
