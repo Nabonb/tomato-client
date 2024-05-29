@@ -8,7 +8,7 @@ import { assets } from "../assets/images/assets";
 const Footer = () => {
   return (
     <>
-      <footer className="footer p-10 bg-neutral text-neutral-content grid md:grid-cols-4">
+      <footer id="contact-us" className="footer p-10 bg-neutral text-neutral-content grid md:grid-cols-4">
         <nav className="col-span-2">
           <a className="link link-hover">
             <img src={assets.logo} alt="" />

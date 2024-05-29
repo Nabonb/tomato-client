@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import { assets } from "../assets/images/assets";
 import { AuthContext } from "../providers/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const SingleDish = ({ food }) => {
-  const {cartItems, addToCart,removeFromCart} = useContext(AuthContext)
+  const {cartItems, addToCart,removeFromCart,user} = useContext(AuthContext)
+  const navigate = useNavigate();
 
   return (
     <div
@@ -16,8 +18,8 @@ const SingleDish = ({ food }) => {
         <img src={food.image} alt="Shoes" className="w-full rounded-2xl" />
         {!cartItems[food._id] ? (
           <img
-            onClick={() => addToCart(food._id)}
-            className="absolute bottom-10 right-10 flex justify-center items-center gap-3 cursor-pointer h-10 w-10"
+            onClick={() => {user?addToCart(food._id):navigate('/login')}}
+            className="absolute bottom-10 right-10 flex justify-center items-center gap-3 cursor-pointer h-11 w-11"
             src={assets.add_icon_white}
           ></img>
         ) : (

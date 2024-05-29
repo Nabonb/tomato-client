@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const DownloadApp = () => {
   return (
-    <div className="text-center my-20">
+    <div id="mobile-app" className="text-center my-20">
       <div >
         <h1 className="text-2xl md:text-5xl font-bold mb-8 md:mb-14">
           For Better Experience Download <br />

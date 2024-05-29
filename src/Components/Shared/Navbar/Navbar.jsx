@@ -12,7 +12,7 @@ const Navbar = () => {
   console.log(openModal);
 
   return (
-    <div className="mt-8 px-5 items-center flex justify-between">
+    <div className="sticky top-0 z-50 bg-base-100 mt-8 px-5 items-center flex justify-between">
       <div className="navbar bg-base-100">
         <div className="navbar-start">
           <div className="dropdown">
@@ -37,16 +37,16 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-5xl"
             >
               <li>
-                <Link>Home</Link>
+                <a to="#home">Home</a>
               </li>
               <li>
-                <Link>Menu</Link>
+                <a href="#menu">Menu</a>
               </li>
               <li>
-                <Link>Mobile App</Link>
+                <a href="#mobile-app">Mobile App</a>
               </li>
               <li>
-                <Link>Contact Us</Link>
+                <a href="#contact-us">Contact Us</a>
               </li>
               <li className="md:hidden flex flex-col gap-3">
                 <Link>
@@ -67,16 +67,16 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link>Home</Link>
+              <a href="#home">Home</a>
             </li>
             <li>
-              <Link>Menu</Link>
+              <a href="#menu">Menu</a>
             </li>
             <li>
-              <Link>Mobile App</Link>
+              <a href="#mobile-app">Mobile App</a>
             </li>
             <li>
-              <Link>Contact Us</Link>
+              <a href="#contact-us">Contact Us</a>
             </li>
           </ul>
         </div>
