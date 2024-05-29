@@ -20,7 +20,7 @@ const Login = () => {
     console.log(email,password)
     signIn(email,password).then((result) => {
       console.log(result)
-      navigate(from)
+      navigate(from,{replace:true});
       toast.success("Logged In Successfully")
       setLoading(false)
     }).catch(err=>{
@@ -34,7 +34,7 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     signInWithGoogle().then((result) => {
       console.log(result)
-      navigate(from)
+      navigate(from,{replace:true});
       toast.success("Sign Up Successfully")
       setLoading(false)
     }).catch(err=>{

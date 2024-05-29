@@ -1,13 +1,19 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ImSpinner9 } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
-import { useContext, useRef } from "react";
+import { useContext} from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 
 const SignUp = () => {
-  const { user, loading, setLoading, createUser, signInWithGoogle,updateUserProfile } =
-    useContext(AuthContext);
+  const {
+    user,
+    loading,
+    setLoading,
+    createUser,
+    signInWithGoogle,
+    updateUserProfile,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -19,20 +25,42 @@ const SignUp = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    //Upload image 
-    const image = event.target.image.files[0]
-    const formData = new FormData()
-    formData.append('image',image)
-    const url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_KEY}`
+    setLoading(true)
+    //Take Image
+    const image = event.target.image.files[0];
+    const formData = new FormData();
+    formData.append("image", image);
+    const url = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_IMGBB_KEY
+    }`;
     
-    // console.log(formData)
-    // createUser(email,password).then(result=>{
-    //   console.log(result)
-    //   updateUserProfile(name,)
-    //   navigate(from)
-    //   toast.success("Sign Up Successfully")
-    //   setLoading(false)
-    // })
+    //Upload Image
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imageData) => {
+        // console.log(imageData.data.display_url)
+        const photoURL = imageData.data.display_url;
+        createUser(email, password).then((result) => {
+          updateUserProfile(name, photoURL)
+            .then(() => {
+              navigate(from,{replace:true});
+              toast.success("Sign Up Successfully");
+            })
+            .catch((err) => {
+              console.log(err.message);
+              toast.error(err.message);
+              setLoading(false);
+            });
+        });
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err.message);
+        toast.error(err.message);
+      });
   };
 
   // Handling Google Sign Up
@@ -40,7 +68,7 @@ const SignUp = () => {
     signInWithGoogle()
       .then((result) => {
         console.log(result);
-        navigate(from);
+        navigate(from,{replace:true});
         toast.success("Sign Up Successfully");
         setLoading(false);
       })

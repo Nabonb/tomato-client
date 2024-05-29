@@ -6,12 +6,11 @@ const Avatar = () => {
   const { user } = useContext(AuthContext);
   return (
       <img
-        className="rounded-full cursor-pointer"
+        className="rounded-full cursor-pointer w-10 h-10"
         referrerPolicy="no-referrer"
         src={user ? user.photoURL : assets.avatar_null}
         alt="Profile"
-        height="30"
-        width="30"
+        
       />
   );
 };
