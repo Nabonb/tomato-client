@@ -1,10 +1,6 @@
 import React from "react";
 import { assets } from "../assets/images/assets";
 
-// linkedin_icon,
-//     facebook_icon,
-//     twitter_icon,
-
 const Footer = () => {
   return (
     <>

@@ -37,7 +37,7 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 text-5xl"
             >
               <li>
-                <a to="#home">Home</a>
+                <Link to="/">Home</Link>
               </li>
               <li>
                 <a href="#menu">Menu</a>
@@ -54,7 +54,7 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="md:hidden flex flex-col gap-3">
-                <Link>
+                <Link to='/order'>
                   <img src={basket} height={22} width={22} alt="" />
                 </Link>
               </li>
@@ -67,7 +67,7 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a href="#home">Home</a>
+              <Link to='/'>Home</Link>
             </li>
             <li>
               <a href="#menu">Menu</a>
@@ -85,7 +85,7 @@ const Navbar = () => {
             <Link>
               <img className="w-5 h-5" src={search} alt="" />
             </Link>
-            <Link>
+            <Link to='/order'>
               <img className="w-5 h-5" src={basket} alt="" />
             </Link>
           </div>

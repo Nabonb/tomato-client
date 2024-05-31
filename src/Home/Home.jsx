@@ -19,9 +19,7 @@ const Home = () => {
       <div className="my-8">
         <DownloadApp></DownloadApp>
       </div>
-      <div className="my-8">
-        <Footer></Footer>
-      </div>
+      
     </>
   );
 };
