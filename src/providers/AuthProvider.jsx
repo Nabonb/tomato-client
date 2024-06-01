@@ -11,6 +11,9 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
+import { food_list } from "../assets/images/assets";
+
+
 
 export const AuthContext = createContext(null);
 
@@ -74,6 +77,17 @@ const AuthProvider = ({ children }) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
   };
 
+  const getSubTotalCartAmount =()=>{
+    let totalAmount = 0;
+    for(const item in cartItems){
+      if(cartItems[item]>0){
+        let itemInfo = food_list.find((product)=>product._id == item)
+        totalAmount = totalAmount + itemInfo.price * cartItems[item]
+      }
+    }
+    return totalAmount;
+  }
+
   useEffect(() => {
     console.log(cartItems);
   }, [cartItems]);
@@ -103,6 +117,7 @@ const AuthProvider = ({ children }) => {
     setCartItems,
     addToCart,
     removeFromCart,
+    getSubTotalCartAmount
   };
 
   return (

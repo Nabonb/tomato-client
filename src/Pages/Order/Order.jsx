@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { assets } from "../../assets/images/assets";
 import SingleOrder from "./SingleOrder";
+import CartTotal from "./CartTotal";
 
 const Order = () => {
   const { cartItems } = useContext(AuthContext);
@@ -24,13 +25,34 @@ const Order = () => {
           </thead>
           <tbody>
             {food_list.map((item, index) => {
-                
               if (cartItems[item._id] > 0) {
-                return(<SingleOrder key={index} item={item} cartItems={cartItems} ></SingleOrder>)
+                return (
+                  <SingleOrder
+                    key={index}
+                    item={item}
+                    cartItems={cartItems}
+                  ></SingleOrder>
+                );
               }
             })}
           </tbody>
         </table>
+      </div>
+      <div className="grid md:grid-cols-2 my-8 gap-8 md:gap-48">
+        <CartTotal></CartTotal>
+        <div>
+          <p className="text-slate-500 my-2">
+            If you have a promo code Enter it here
+          </p>
+          <div className="flex">
+            <input
+              type="text"
+              placeholder="Type here"
+              className="input input-bordered w-full max-w-xs"
+            />
+            <button className="btn bg-black text-white">Submit</button>
+          </div>
+        </div>
       </div>
     </div>
   );

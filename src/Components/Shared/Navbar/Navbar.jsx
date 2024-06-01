@@ -5,11 +5,13 @@ import search from "../../../assets/images/search_icon.png";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 import Avatar from "./Avatar";
+import { assets } from "../../../assets/images/assets";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, cartItems } = useContext(AuthContext);
   const [openModal, setOpenModal] = useState(false);
   console.log(openModal);
+  console.log(Object.keys(cartItems).length);
 
   return (
     <div className="sticky top-0 z-50 bg-base-100 mt-8 px-5 items-center flex justify-between">
@@ -54,7 +56,7 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="md:hidden flex flex-col gap-3">
-                <Link to='/order'>
+                <Link to="/order">
                   <img src={basket} height={22} width={22} alt="" />
                 </Link>
               </li>
@@ -67,7 +69,7 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link to='/'>Home</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
               <a href="#menu">Menu</a>
@@ -85,9 +87,20 @@ const Navbar = () => {
             <Link>
               <img className="w-5 h-5" src={search} alt="" />
             </Link>
-            <Link to='/order'>
-              <img className="w-5 h-5" src={basket} alt="" />
-            </Link>
+            {Object.keys(cartItems).length > 0 ? (
+              <Link className="relative" to="/order">
+                <img className="w-5 h-5" src={basket} alt="" />
+                <img
+                  className="w-2 h-2 absolute right-0 bottom-4"
+                  src={assets.selector_icon}
+                  alt=""
+                />
+              </Link>
+            ) : (
+              <Link className="relative" to="/order">
+                <img className="w-5 h-5" src={basket} alt="" />
+              </Link>
+            )}
           </div>
           <div
             className="relative"
@@ -137,16 +150,6 @@ const Navbar = () => {
               </div>
             )}
           </div>
-
-          {/* {user ? (
-            <Link onClick={() => logOut()} to="/" className="btn">
-              Log Out
-            </Link>
-          ) : (
-            <Link to="/login" className="btn">
-              Log In
-            </Link>
-          )} */}
         </div>
       </div>
     </div>
