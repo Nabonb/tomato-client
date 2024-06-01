@@ -4,6 +4,7 @@ import { useContext, useRef } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import toast from "react-hot-toast";
 import { ImSpinner9 } from "react-icons/im";
+import { saveUser } from "../../api/auth";
 
 const Login = () => {
   const { user, loading, setLoading, signIn, signInWithGoogle,resetPassword } = useContext(AuthContext);
@@ -33,7 +34,8 @@ const Login = () => {
 // Handling Google Sign Up
   const handleGoogleSignIn = () => {
     signInWithGoogle().then((result) => {
-      console.log(result)
+      console.log(result.user)
+      saveUser(result.user)
       navigate(from,{replace:true});
       toast.success("Sign Up Successfully")
       setLoading(false)
