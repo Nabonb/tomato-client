@@ -39,7 +39,7 @@ const Order = () => {
         </table>
       </div>
       <div className="grid md:grid-cols-2 my-8 gap-8 md:gap-48">
-        <CartTotal></CartTotal>
+        <CartTotal buttonText='Proceed To Checkout'></CartTotal>
         <div>
           <p className="text-slate-500 my-2">
             If you have a promo code Enter it here

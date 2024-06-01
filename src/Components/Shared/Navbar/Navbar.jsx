@@ -5,13 +5,11 @@ import search from "../../../assets/images/search_icon.png";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 import Avatar from "./Avatar";
-import { assets } from "../../../assets/images/assets";
 
 const Navbar = () => {
-  const { user, logOut, cartItems } = useContext(AuthContext);
+  const { user, logOut, getSubTotalCartAmount } = useContext(AuthContext);
   const [openModal, setOpenModal] = useState(false);
   console.log(openModal);
-  console.log(Object.keys(cartItems).length);
 
   return (
     <div className="sticky top-0 z-50 bg-base-100 mt-8 px-5 items-center flex justify-between">
@@ -52,13 +50,20 @@ const Navbar = () => {
               </li>
               <li className="md:hidden flex flex-col gap-3">
                 <Link>
-                  <img src={search} height={22} width={22} alt="" />
+                  <img src={search} className="h-5 w-5" alt="" />
                 </Link>
               </li>
               <li className="md:hidden flex flex-col gap-3">
-                <Link to="/order">
-                  <img src={basket} height={22} width={22} alt="" />
-                </Link>
+                {getSubTotalCartAmount() > 0 ? (
+                  <Link className="relative" to="/order">
+                    <img className="w-5 h-5" src={basket} alt="" />
+                    <div className="bg-red-400 rounded-full h-2 w-2 absolute left-8 bottom-5"></div>
+                  </Link>
+                ) : (
+                  <Link className="relative" to="/order">
+                    <img className="w-5 h-5" src={basket} alt="" />
+                  </Link>
+                )}
               </li>
             </ul>
           </div>
@@ -87,14 +92,10 @@ const Navbar = () => {
             <Link>
               <img className="w-5 h-5" src={search} alt="" />
             </Link>
-            {Object.keys(cartItems).length > 0 ? (
+            {getSubTotalCartAmount() > 0 ? (
               <Link className="relative" to="/order">
                 <img className="w-5 h-5" src={basket} alt="" />
-                <img
-                  className="w-2 h-2 absolute right-0 bottom-4"
-                  src={assets.selector_icon}
-                  alt=""
-                />
+                <div className="bg-red-400 rounded-full h-2 w-2 absolute right-0 bottom-5"></div>
               </Link>
             ) : (
               <Link className="relative" to="/order">
@@ -152,6 +153,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
     </div>
   );
 };

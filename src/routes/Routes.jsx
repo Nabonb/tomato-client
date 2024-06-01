@@ -4,6 +4,7 @@ import Home from "../Home/Home";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/Signup/Signup";
 import Order from "../Pages/Order/Order";
+import PlaceOrder from "../Pages/PlaceOrder/PlaceOrder";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
         path:'/order',
         element:<Order></Order>
       },
+      {
+        path:'/place-order',
+        element:<PlaceOrder></PlaceOrder>
+      }
     ],
   },
   {

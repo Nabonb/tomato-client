@@ -1,21 +1,25 @@
 import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { food_list } from "../../assets/images/assets";
+import { useNavigate } from "react-router-dom";
 
-const CartTotal = () => {
-    const {getSubTotalCartAmount} = useContext(AuthContext)
-    const deliveryFee = 5
-    const totalAmount = getSubTotalCartAmount() + deliveryFee
+const CartTotal = ({buttonText}) => {
+  const { getSubTotalCartAmount } = useContext(AuthContext);
+  const deliveryFee = getSubTotalCartAmount()===0 ? 0: 2;
+  const totalAmount = getSubTotalCartAmount() + deliveryFee;
+  const navigate = useNavigate()
+
   return (
     <div>
-      <h1 className="text-2xl font-semibold">Cart Totals</h1>
+      <h1 className="text-2xl font-bold">Cart Totals</h1>
       <div className="overflow-x-auto">
         <table className="table">
           <tbody>
             {/* row 1 */}
             <tr>
               <td>Subtotal</td>
-              <td className="flex justify-end font-semibold">${getSubTotalCartAmount()}</td>
+              <td className="flex justify-end font-semibold">
+                ${getSubTotalCartAmount()}
+              </td>
             </tr>
             {/* row 2 */}
             <tr>
@@ -23,13 +27,18 @@ const CartTotal = () => {
               <td className="flex justify-end font-semibold">${deliveryFee}</td>
             </tr>
             <tr>
-                <td className="font-semibold">Total</td>
-                <td className="flex justify-end font-semibold">${totalAmount}</td>
+              <td className="font-semibold">Total</td>
+              <td className="flex justify-end font-semibold">${totalAmount}</td>
             </tr>
-
           </tbody>
         </table>
-        <button style={{backgroundColor:"tomato"}} className="btn text-white">Proceed To Checkout</button>
+        <button
+          onClick={()=>navigate('/place-order')}
+          style={{ backgroundColor: "tomato" }}
+          className="btn text-white"
+        >
+          {buttonText}
+        </button>
       </div>
     </div>
   );
