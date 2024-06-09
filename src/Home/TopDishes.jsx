@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { food_list } from "../assets/images/assets";
 import SingleDish from "./SingleDish";
 import { useSearchParams } from "react-router-dom";
-import { getAllFood } from "../api/food";
+
 
 const TopDishes = () => {
   const [params, setParams] = useSearchParams();
@@ -10,7 +10,6 @@ const TopDishes = () => {
   const [foods, setFoods] = useState([]);
 
   useEffect(() => {
-    // getAllFood().then(data=>{console.log(data)})
     if (category) {
       const filteredFood = food_list.filter(
         (food) => food.category === category
