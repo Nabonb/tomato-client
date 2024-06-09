@@ -7,7 +7,7 @@ import { AuthContext } from "../../../providers/AuthProvider";
 import Avatar from "./Avatar";
 
 const Navbar = () => {
-  const { user, logOut, getSubTotalCartAmount } = useContext(AuthContext);
+  const { user, logOut, getSubTotalCartAmount,role } = useContext(AuthContext);
   const [openModal, setOpenModal] = useState(false);
   console.log(openModal);
 
@@ -115,12 +115,12 @@ const Navbar = () => {
                 <div className="flex flex-col cursor-pointer">
                   {user ? (
                     <>
-                      <Link
-                        to="/"
+                      {role && <Link
+                        to="/dashboard"
                         className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
                       >
                         Dashboard
-                      </Link>
+                      </Link>}
 
                       <div
                         onClick={() => {

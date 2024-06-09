@@ -12,6 +12,7 @@ import {
 } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
 import { food_list } from "../assets/images/assets";
+import { getRole } from "../api/auth";
 
 
 
@@ -25,6 +26,14 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   console.log(user);
   const [loading, setLoading] = useState(true);
+  const [role,setRole] = useState(null)
+
+
+  useEffect(() => {
+    if (user) {
+      getRole(user.email).then((data) => setRole(data));
+    }
+  }, [user]);
  
 
   //this is for the user
@@ -88,9 +97,7 @@ const AuthProvider = ({ children }) => {
     return totalAmount;
   }
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
+  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -117,7 +124,8 @@ const AuthProvider = ({ children }) => {
     setCartItems,
     addToCart,
     removeFromCart,
-    getSubTotalCartAmount
+    getSubTotalCartAmount,
+    role
   };
 
   return (
