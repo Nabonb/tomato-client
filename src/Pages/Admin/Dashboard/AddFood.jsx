@@ -9,9 +9,14 @@ import { ImSpinner9 } from "react-icons/im";
 const AddFood = () => {
   const [loading, setLoading] = useState(false);
   const [uploadText, setUploadText] = useState("");
+  const [uploadImageURL, setUploadImageURL] = useState(null);
 
   const handleImageChange = (image) => {
+    console.log(image);
     setUploadText(image.name);
+    imageUpload(image).then((data) => {
+      setUploadImageURL(data.data.display_url);
+    });
   };
 
   const handleSubmit = (event) => {
@@ -21,32 +26,22 @@ const AddFood = () => {
     const description = event.target.description.value;
     const category = event.target.category.value;
     const price = event.target.price.value;
-    const image = event.target.image.files[0];
 
-    //Upload food image in the imgBB
-    imageUpload(image)
+    const foodData = {
+      name,
+      description,
+      category,
+      price,
+      image: uploadImageURL,
+    };
+
+    //Post room data into the server
+    addFood(foodData)
       .then((data) => {
-        const foodData = {
-          name,
-          description,
-          category,
-          price,
-          image: data.data.display_url,
-        };
-
-        //Post room data into the server
-        addFood(foodData)
-          .then((data) => {
-            // setUploadButtonText("Uploaded")
-            toast.success("Food Added!");
-            // navigate('/dashboard/my-listings')
-            setLoading(false);
-            console.log(data);
-          })
-          .catch((err) => {
-            setLoading(false);
-            console.log(err.message);
-          });
+        toast.success("Food Added!");
+        // navigate('/dashboard/food-list')
+        setLoading(false);
+        console.log(data);
       })
       .catch((err) => {
         setLoading(false);
@@ -68,12 +63,7 @@ const AddFood = () => {
               required
             />
             {uploadText ? (
-              <p
-                style={{ backgroundColor: "tomato" }}
-                className="text-white border-2 border-dotted border-white w-full font-semibold text-center p-3"
-              >
-                {uploadText}
-              </p>
+              <img className="w-full" src={uploadImageURL} alt=""></img>
             ) : (
               <img className="w-full" src={uploadImage} alt="" />
             )}
@@ -141,8 +131,10 @@ const AddFood = () => {
           className="btn text-white mt-5"
         >
           {loading ? (
-                <ImSpinner9 size={24} className="animate-spin mx-auto" />
-              ): 'Add Item'}
+            <ImSpinner9 size={24} className="animate-spin mx-auto" />
+          ) : (
+            "Add Item"
+          )}
         </button>
       </form>
     </div>

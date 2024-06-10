@@ -7,6 +7,7 @@ import Order from "../Pages/Order/Order";
 import PlaceOrder from "../Pages/PlaceOrder/PlaceOrder";
 import DashboardLayout from "../layouts/DashboardLayout";
 import AddFood from "../Pages/Admin/Dashboard/AddFood";
+import FoodList from "../Pages/Admin/FoodList/FoodList";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/add-food",
         element: <AddFood></AddFood>,
+      },
+      {
+        path: "/dashboard/food-list",
+        element: <FoodList></FoodList>,
       },
     ],
   },
