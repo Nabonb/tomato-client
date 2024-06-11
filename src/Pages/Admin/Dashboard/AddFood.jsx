@@ -5,11 +5,13 @@ import { imageUpload } from "../../../api/utils";
 import { addFood } from "../../../api/food";
 import toast from "react-hot-toast";
 import { ImSpinner9 } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
 
 const AddFood = () => {
   const [loading, setLoading] = useState(false);
   const [uploadText, setUploadText] = useState("");
   const [uploadImageURL, setUploadImageURL] = useState(null);
+  const navigate = useNavigate()
 
   const handleImageChange = (image) => {
     console.log(image);
@@ -38,8 +40,8 @@ const AddFood = () => {
     //Post room data into the server
     addFood(foodData)
       .then((data) => {
-        toast.success("Food Added!");
-        // navigate('/dashboard/food-list')
+        navigate('/dashboard/food-list')
+        toast.success("Food is added successfully")
         setLoading(false);
         console.log(data);
       })

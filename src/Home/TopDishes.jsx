@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { food_list } from "../assets/images/assets";
+import React, { useContext, useEffect, useState } from "react";
 import SingleDish from "./SingleDish";
 import { useSearchParams } from "react-router-dom";
+import { getAllFood } from "../api/food";
 
 
 const TopDishes = () => {
@@ -9,16 +9,21 @@ const TopDishes = () => {
   const category = params.get("category");
   const [foods, setFoods] = useState([]);
 
+
   useEffect(() => {
+    getAllFood().then(foodList=>{
     if (category) {
-      const filteredFood = food_list.filter(
+      const filteredFood = foodList.filter(
         (food) => food.category === category
       );
       setFoods(filteredFood);
     } else {
-      setFoods(food_list);
+      setFoods(foodList);
     }
+  }).catch(err=>console.log(err.message))
   }, [category]);
+
+  
   return (
     <div className="text-center">
       <h1 className="text-xl md:text-2xl font-semibold">Top Dishes Near You</h1>

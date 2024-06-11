@@ -1,9 +1,12 @@
 import React from "react";
 import { assets } from "../../../assets/images/assets";
 
-const SingleFood = ({item}) => {
+const SingleFood = ({item,index}) => {
+
+ 
   return (
     <tr className="text-center">
+      <td>{index+1}</td>
       <td>
         <div className="flex justify-center items-center gap-3">
           <div className="avatar">

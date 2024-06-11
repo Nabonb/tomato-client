@@ -25,6 +25,7 @@ const FoodList = () => {
           <table className="table">
             <thead>
               <tr className="text-center">
+                <th>#</th>
                 <th>Image</th>
                 <th>Name</th>
                 <th>Category</th>
@@ -34,7 +35,7 @@ const FoodList = () => {
             </thead>
             <tbody>
               {foods.map((item, index) => (
-                <SingleFood key={index} item={item}></SingleFood>
+                <SingleFood key={index} item={item} index={index}></SingleFood>
               ))}
             </tbody>
           </table>
