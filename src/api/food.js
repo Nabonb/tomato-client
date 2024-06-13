@@ -19,3 +19,16 @@ export const getAllFood =async ()=>{
     console.log(data)
     return data
 }
+
+// Delete one food from the server
+export const deleteFood = async id =>{
+    const response= await fetch(`${import.meta.env.VITE_API_URL}/foods/${id}`,{
+        method:"DELETE",
+        headers:{
+            'content-type':'application/json'
+        }
+    })
+    const data = await response.json()
+    console.log(data)
+    return data
+}

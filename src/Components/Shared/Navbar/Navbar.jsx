@@ -8,6 +8,7 @@ import Avatar from "./Avatar";
 
 const Navbar = () => {
   const { user, logOut, getSubTotalCartAmount,role } = useContext(AuthContext);
+  console.log(role!=='host')
   const [openModal, setOpenModal] = useState(false);
   console.log(openModal);
 
@@ -54,7 +55,7 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="md:hidden flex flex-col gap-3">
-                {getSubTotalCartAmount() > 0 ? (
+                {role ? '' : getSubTotalCartAmount() > 0 ? (
                   <Link className="relative" to="/order">
                     <img className="w-5 h-5" src={basket} alt="" />
                     <div className="bg-red-400 rounded-full h-2 w-2 absolute left-8 bottom-5"></div>
@@ -92,13 +93,13 @@ const Navbar = () => {
             <Link>
               <img className="w-5 h-5" src={search} alt="" />
             </Link>
-            {getSubTotalCartAmount() > 0 ? (
-              <Link className="relative" to="/order">
+            {role ?'': getSubTotalCartAmount() > 0 ? (
+              <Link className="relative" to={user ? "/order" : '/login'}>
                 <img className="w-5 h-5" src={basket} alt="" />
                 <div className="bg-red-400 rounded-full h-2 w-2 absolute right-0 bottom-5"></div>
               </Link>
             ) : (
-              <Link className="relative" to="/order">
+              <Link className="relative" to={user ? "/order" : '/login'}>
                 <img className="w-5 h-5" src={basket} alt="" />
               </Link>
             )}
