@@ -32,3 +32,16 @@ export const deleteFood = async id =>{
     console.log(data)
     return data
 }
+
+//Ordered food from the server
+export const orderedFood =async (details)=>{
+    const response= await fetch(`${import.meta.env.VITE_API_URL}/orders`,{
+        method:"POST",
+        headers:{
+            'content-type':'application/json'
+        },
+        body: JSON.stringify(details)
+    })
+    const data = await response.json()
+    return data
+}

@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, {useContext} from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
-const CartTotal = ({buttonText}) => {
+const CartTotal = ({buttonText,handleSubmit}) => {
   const { getSubTotalCartAmount } = useContext(AuthContext);
   const deliveryFee = getSubTotalCartAmount()===0 ? 0: 2;
   const totalAmount = getSubTotalCartAmount() + deliveryFee;
@@ -33,9 +33,10 @@ const CartTotal = ({buttonText}) => {
           </tbody>
         </table>
         <button
-          onClick={()=>navigate('/place-order')}
+          onClick={buttonText == 'Proceed To Payment'?handleSubmit:()=>navigate('/place-order')}
           style={{ backgroundColor: "tomato" }}
-          className="btn text-white"
+          className={'btn text-white'}
+          // disabled={totalAmount === 0} todo
         >
           {buttonText}
         </button>

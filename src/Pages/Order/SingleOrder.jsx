@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../../assets/images/assets";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const SingleOrder = ({ item, cartItems }) => {
   const { removeFromCart } = useContext(AuthContext);
-  const totalQuantity = cartItems[item._id]
-  const totalPrice = totalQuantity*item.price
-  console.log(item);
+  const totalQuantity = cartItems[item._id];
+  const totalPrice = totalQuantity * item.price;
+
   return (
     <tr className="text-center">
       <td>
@@ -19,7 +19,7 @@ const SingleOrder = ({ item, cartItems }) => {
         </div>
       </td>
       <td>{item.name}</td>
-      <td>${item.price}</td>
+      <td>${parseFloat(item.price)}</td>
       <td>{cartItems[item._id]}</td>
       <td className="">${totalPrice}</td>
       <td>

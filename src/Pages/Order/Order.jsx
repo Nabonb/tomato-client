@@ -1,18 +1,24 @@
-import React from "react";
-import { food_list } from "../../assets/images/assets";
+import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
-import { assets } from "../../assets/images/assets";
 import SingleOrder from "./SingleOrder";
 import CartTotal from "./CartTotal";
 import EmptyState from "../../Components/Shared/EmptyState/EmptyState";
+import { getAllFood } from "../../api/food";
 
 const Order = () => {
   const { cartItems, getSubTotalCartAmount } = useContext(AuthContext);
-  console.log(cartItems);
+  const [foods, setFoods] = useState([]);
+
+  useEffect(() => {
+    getAllFood().then(foodList=>{
+    setFoods(foodList)
+  }).catch(err=>console.log(err.message))
+  }, []);
+
   return (
     <div>
-      {getSubTotalCartAmount() === 0 ? (
+      {getSubTotalCartAmount(foods) === 0 ? (
         <EmptyState message="No Items Are Added Right Now" address='/' label="Add Now"></EmptyState>
       ) : (
         <div className="overflow-x-auto">
@@ -28,8 +34,9 @@ const Order = () => {
               </tr>
             </thead>
             <tbody>
-              {food_list.map((item, index) => {
+              {foods.map((item, index) => {
                 if (cartItems[item._id] > 0) {
+
                   return (
                     <SingleOrder
                       key={index}

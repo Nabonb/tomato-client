@@ -13,6 +13,7 @@ import {
 import { app } from "../firebase/firebase.config";
 import { food_list } from "../assets/images/assets";
 import { getRole } from "../api/auth";
+import { getAllFood } from "../api/food";
 
 
 
@@ -86,14 +87,25 @@ const AuthProvider = ({ children }) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
   };
 
+  const [foods, setFoods] = useState([]);
+  useEffect(() => {
+    getAllFood().then(foodList=>{
+    setFoods(foodList)
+  }).catch(err=>console.log(err.message))
+  }, []);
+
   const getSubTotalCartAmount =()=>{
-    let totalAmount = 0;
-    for(const item in cartItems){
+    // console.log(foods)
+    
+      let totalAmount = 0;
+      for(const item in cartItems){
       if(cartItems[item]>0){
-        let itemInfo = food_list.find((product)=>product._id == item)
+        let itemInfo = foods.find((product)=>product._id == item)
         totalAmount = totalAmount + itemInfo.price * cartItems[item]
+        // console.log(totalAmount)
       }
     }
+    // console.log(totalAmount)
     return totalAmount;
   }
 
