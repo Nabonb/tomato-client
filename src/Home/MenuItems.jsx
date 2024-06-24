@@ -6,7 +6,6 @@ import { useSearchParams } from "react-router-dom";
 
 const MenuItems = () => {
   const [params, setParams] = useSearchParams();
-  console.log(params);
   const categoryParam = params.get("category");
   return (
     <div className="my-5 p-4 overflow-x-scroll hide-scrollbar">

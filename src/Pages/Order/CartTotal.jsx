@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const CartTotal = ({buttonText,handleSubmit}) => {
   const { getSubTotalCartAmount } = useContext(AuthContext);
-  const deliveryFee = getSubTotalCartAmount()===0 ? 0: 2;
+  const deliveryFee = getSubTotalCartAmount()=== 0 ? 0: 2;
   const totalAmount = getSubTotalCartAmount() + deliveryFee;
   const navigate = useNavigate()
 

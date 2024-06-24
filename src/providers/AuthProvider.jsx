@@ -25,7 +25,6 @@ const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  console.log(user);
   const [loading, setLoading] = useState(true);
   const [role,setRole] = useState(null)
 
@@ -71,21 +70,48 @@ const AuthProvider = ({ children }) => {
   };
 
   //This is for food
-  const [cartItems, setCartItems] = useState({});
-  
+  const [cartItems, setCartItems] = useState([]);
+  const [foodItem,setFoodItem] = useState([])
 
-  const addToCart = (itemId) => {
-        if (!cartItems[itemId]) {
-          setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
-        } else {
-          setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
-        }
-     
+  const addToCart = (food) => {
+    setCartItems((prev) => {
+      const existingItemIndex = prev.findIndex(item => item._id === food._id);
+
+      if (existingItemIndex === -1) {
+        // Item does not exist in the cart, add it with quantity 1
+        return [...prev, { ...food, quantity: 1 }];
+      } else {
+        // Item exists, update its quantity
+        const updatedCart = [...prev];
+        updatedCart[existingItemIndex] = {
+          ...updatedCart[existingItemIndex],
+          quantity: updatedCart[existingItemIndex].quantity + 1,
+        };
+        return updatedCart;
+      }
+    });
   };
 
   const removeFromCart = (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+    setCartItems((prev) => {
+      const existingItemIndex = prev.findIndex(item => item._id === itemId);
+
+      if (existingItemIndex === -1) {
+        // Item does not exist in the cart, do nothing
+        return prev;
+      } else {
+        // Item exists, update its quantity or remove it
+        const updatedCart = [...prev];
+        if (updatedCart[existingItemIndex].quantity > 1) {
+          updatedCart[existingItemIndex].quantity -= 1;
+        } else {
+          updatedCart.splice(existingItemIndex, 1);
+        }
+        return updatedCart;
+      }
+    });
   };
+  
 
   const [foods, setFoods] = useState([]);
   useEffect(() => {
@@ -94,25 +120,23 @@ const AuthProvider = ({ children }) => {
   }).catch(err=>console.log(err.message))
   }, []);
 
-  const getSubTotalCartAmount =()=>{
-    // console.log(foods)
-    
-      let totalAmount = 0;
-      for(const item in cartItems){
-      if(cartItems[item]>0){
-        let itemInfo = foods.find((product)=>product._id == item)
-        totalAmount = totalAmount + itemInfo.price * cartItems[item]
-        // console.log(totalAmount)
+  const getSubTotalCartAmount = () => {
+    let totalAmount = 0;
+  
+    cartItems.forEach(cartItem => {
+      const itemInfo = foods.find(product => product._id === cartItem._id);
+      if (itemInfo) {
+        totalAmount += itemInfo.price * cartItem.quantity;
       }
-    }
-    // console.log(totalAmount)
+    });
+  
     return totalAmount;
-  }
+  };
+  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log("current user", currentUser);
       setLoading(false);
     });
     return () => {
@@ -135,7 +159,8 @@ const AuthProvider = ({ children }) => {
     addToCart,
     removeFromCart,
     getSubTotalCartAmount,
-    role
+    role,
+
   };
 
   return (

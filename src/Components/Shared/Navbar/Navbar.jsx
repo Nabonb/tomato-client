@@ -8,9 +8,8 @@ import Avatar from "./Avatar";
 
 const Navbar = () => {
   const { user, logOut, getSubTotalCartAmount,role } = useContext(AuthContext);
-  console.log(role!=='host')
   const [openModal, setOpenModal] = useState(false);
-  console.log(openModal);
+ 
 
   return (
     <div className="sticky top-0 z-50 bg-base-100 mt-8 px-5 items-center flex justify-between">

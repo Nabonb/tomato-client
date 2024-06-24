@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import SingleOrder from "./SingleOrder";
 import CartTotal from "./CartTotal";
@@ -7,19 +6,29 @@ import EmptyState from "../../Components/Shared/EmptyState/EmptyState";
 import { getAllFood } from "../../api/food";
 
 const Order = () => {
-  const { cartItems, getSubTotalCartAmount } = useContext(AuthContext);
+  const { cartItems, getSubTotalCartAmount, user } = useContext(AuthContext);
   const [foods, setFoods] = useState([]);
 
   useEffect(() => {
-    getAllFood().then(foodList=>{
-    setFoods(foodList)
-  }).catch(err=>console.log(err.message))
+    getAllFood()
+      .then((foodList) => {
+        console.log("Fetched food items:", foodList); // Debugging step
+        setFoods(foodList);
+      })
+      .catch((err) => console.log("Error fetching food items:", err.message));
   }, []);
+
+  console.log("Cart items:", cartItems); // Debugging step
+  console.log("Foods:", foods); // Debugging step
 
   return (
     <div>
-      {getSubTotalCartAmount(foods) === 0 ? (
-        <EmptyState message="No Items Are Added Right Now" address='/' label="Add Now"></EmptyState>
+      {getSubTotalCartAmount(cartItems) === 0 ? (
+        <EmptyState
+          message="No Items Are Added Right Now"
+          address="/"
+          label="Add Now"
+        />
       ) : (
         <div className="overflow-x-auto">
           <table className="table">
@@ -34,24 +43,27 @@ const Order = () => {
               </tr>
             </thead>
             <tbody>
-              {foods.map((item, index) => {
-                if (cartItems[item._id] > 0) {
-
+              {foods.map((item) => {
+                const matchingCartItem = cartItems.find(
+                  (cartItem) => cartItem._id === item._id
+                );
+                if (matchingCartItem) {
                   return (
                     <SingleOrder
-                      key={index}
+                      key={item._id} // Use item._id as key for uniqueness
                       item={item}
                       cartItems={cartItems}
-                    ></SingleOrder>
+                    />
                   );
                 }
+                return null;
               })}
             </tbody>
           </table>
         </div>
       )}
       <div className="grid md:grid-cols-2 my-8 gap-8 md:gap-48">
-        <CartTotal buttonText="Proceed To Checkout"></CartTotal>
+        <CartTotal buttonText="Proceed To Checkout" />
         <div>
           <p className="text-slate-500 my-2">
             If you have a promo code Enter it here
