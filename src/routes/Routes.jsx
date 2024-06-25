@@ -8,6 +8,8 @@ import PlaceOrder from "../Pages/PlaceOrder/PlaceOrder";
 import DashboardLayout from "../layouts/DashboardLayout";
 import AddFood from "../Pages/Admin/Dashboard/AddFood";
 import FoodList from "../Pages/Admin/FoodList/FoodList";
+import Success from "../Components/Success/Success";
+import Cancel from "../Components/Cancel/Cancel";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ export const router = createBrowserRouter([
       {
         path: "/place-order",
         element: <PlaceOrder></PlaceOrder>,
+      },
+      {
+        path:'/success',
+        element:<Success></Success>
+      },
+      {
+        path:'/cancel',
+        element:<Cancel></Cancel>
       },
     ],
   },
@@ -50,4 +60,5 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  
 ]);

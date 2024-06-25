@@ -36,7 +36,7 @@ const CartTotal = ({buttonText,handleSubmit}) => {
           onClick={buttonText == 'Proceed To Payment'?handleSubmit:()=>navigate('/place-order')}
           style={{ backgroundColor: "tomato" }}
           className={'btn text-white'}
-          // disabled={totalAmount === 0} todo
+          disabled={totalAmount === 0}
         >
           {buttonText}
         </button>
