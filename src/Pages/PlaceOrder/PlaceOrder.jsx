@@ -80,7 +80,7 @@ const PlaceOrder = () => {
         };
 
         const response = await fetch(
-          "http://localhost:5000/create-checkout-session",
+          `${import.meta.env.VITE_API_URL}/create-checkout-session`,
           {
             method: "POST",
             headers: headers,
@@ -93,7 +93,7 @@ const PlaceOrder = () => {
         const result = await stripe.redirectToCheckout({
           sessionId: session.id,
         });
-
+        console.log(result)
         if (result.error) {
           console.log(result.error);
         }
