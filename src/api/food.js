@@ -32,7 +32,7 @@ export const deleteFood = async id =>{
     return data
 }
 
-//Ordered food user details from the server
+//Ordered food from the server
 export const orderedFood =async (details)=>{
     const response= await fetch(`${import.meta.env.VITE_API_URL}/orders`,{
         method:"POST",
@@ -42,5 +42,14 @@ export const orderedFood =async (details)=>{
         body: JSON.stringify(details)
     })
     const data = await response.json()
+    return data
+}
+
+// Get the ordered food from the server
+export const getOrderedFood = async(email)=>{
+    console.log(email)
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/orders/${email}`)
+    const data = await response.json()
+    console.log(data)
     return data
 }

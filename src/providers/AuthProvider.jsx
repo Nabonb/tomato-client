@@ -27,6 +27,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [role,setRole] = useState(null)
+  const [foodReady, setFoodReady] = useState('Food Processing')
 
 
   useEffect(() => {
@@ -160,6 +161,8 @@ const AuthProvider = ({ children }) => {
     removeFromCart,
     getSubTotalCartAmount,
     role,
+    foodReady,
+    setFoodReady
 
   };
 
