@@ -53,3 +53,24 @@ export const getOrderedFood = async(email)=>{
     console.log(data)
     return data
 }
+
+//Get the order for the admin
+export const getAdminFood = async()=>{
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/orders`) 
+    const data = await response.json()
+    return data
+}
+
+//Update the food Status
+export const foodStatus = async (id,status) =>{
+    const currentStatus = {
+       status:status
+    }
+   return await fetch(`${import.meta.env.VITE_API_URL}/orders/${id}`,{
+        method:"PUT",
+        headers:{
+            "content-type":"application/json"
+        },
+        body:JSON.stringify(currentStatus)
+    }).then(res=>res.json())
+}

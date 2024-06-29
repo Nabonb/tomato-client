@@ -10,6 +10,7 @@ import AddFood from "../Pages/Admin/Dashboard/AddFood";
 import FoodList from "../Pages/Admin/FoodList/FoodList";
 import Success from "../Components/Success/Success";
 import Cancel from "../Components/Cancel/Cancel";
+import Orders from "../Pages/Admin/Orders/Orders";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard/food-list",
         element: <FoodList></FoodList>,
+      },
+      {
+        path: "/dashboard/orders",
+        element: <Orders></Orders>,
       },
     ],
   },

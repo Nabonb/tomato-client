@@ -5,6 +5,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 const Ordered = ({ item }) => {
   const { foodReady } = useContext(AuthContext);
   var sum = 0;
+  console.log(item)
 
   return (
     <div className="border-2 border-orange-500 flex flex-col lg:flex-row gap-4 items-center mb-4 p-4 w-full">
@@ -32,7 +33,7 @@ const Ordered = ({ item }) => {
         <p className="m-3 font-bold">Total = ${sum}</p>
         <p className="flex items-center">
           <span className="w-2 h-2 bg-orange-500 rounded-full m-2"></span>
-          {foodReady}
+          {item.status}
         </p>
       </div>
     </div>
