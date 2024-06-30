@@ -1,11 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { assets } from "../../assets/images/assets";
-import { AuthContext } from "../../providers/AuthProvider";
+import Loader from "../Shared/Loader/Loader";
 
-const Ordered = ({ item }) => {
-  const { foodReady } = useContext(AuthContext);
+const Ordered = ({ item}) => {
+  const [status, setStatus] = useState(item.status || "Food Processing");
   var sum = 0;
-  console.log(item)
+
+  useEffect(() => {
+    setStatus(item.status || "Food Processing");
+
+  }, [item.status]);
+
 
   return (
     <div className="border-2 border-orange-500 flex flex-col lg:flex-row gap-4 items-center mb-4 p-4 w-full">
@@ -32,8 +37,10 @@ const Ordered = ({ item }) => {
         <p className="m-3 font-bold">Items: {item.cartItems.length}</p>
         <p className="m-3 font-bold">Total = ${sum}</p>
         <p className="flex items-center">
-          <span className="w-2 h-2 bg-orange-500 rounded-full m-2"></span>
-          {item.status}
+          {status=="Food Processing" &&<span className="w-2 h-2 bg-orange-500 rounded-full m-2"></span> }
+          {status=="Out For Delivery" && <span className="w-2 h-2 bg-yellow-500 rounded-full m-2"></span>}
+          {status=="Delivered" && <span className="w-2 h-2 bg-green-500 rounded-full m-2"></span>}
+          {status}
         </p>
       </div>
     </div>

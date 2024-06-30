@@ -1,13 +1,8 @@
 import React, { useEffect } from "react";
 import { foodStatus } from "../../../api/food";
 
-const FoodStatus = ({ food,status }) => {
-    // console.log(status)
-    // console.log(food._id)
-    // useEffect(()=>{
-    //     console.log(food._id)
-    //     foodStatus(food._id,status).then(data=>console.log(data))
-    // },[status])
+const FoodStatus = ({ food }) => {
+
   return (
     <div className="flex justify-between items-center mb-2 w-full">
       <div className="flex flex-col">

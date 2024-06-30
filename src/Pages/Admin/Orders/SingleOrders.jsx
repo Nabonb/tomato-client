@@ -1,47 +1,45 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { assets } from "../../../assets/images/assets";
-// import { foodStatus } from "../../../api/food";
-import FoodStatus from "./FoodStatus";
 import { foodStatus } from "../../../api/food";
 
 const SingleOrders = ({ item }) => {
-  const [status, setStatus] = useState("Food Processing");
+  const [status, setStatus] = useState(item.status); // Initialize with the current status from item
   var sum = 0;
 
   const handleStatusChange = (event) => {
-    setStatus(event.target.value);
-    foodStatus(item._id,status).then(data=>console.log(data))
+    const newStatus = event.target.value;
+    setStatus(newStatus);
+
+    foodStatus(item._id, newStatus).then((data) => {
+      console.log(data);
+    });
   };
+
   useEffect(() => {
-    // foodStatus(item._id,status).then(data=>console.log(data))
-  }, [status]);
+    // Update the local state when the item's status changes
+    setStatus(item.status);
+  }, [item.status]);
 
   return (
     <div className="border-2 border-orange-500 flex flex-col lg:flex-row gap-4 items-center mb-4 p-4 w-full">
       <img src={assets.parcel_icon} alt="" className="w-12 h-12" />
       <div className="flex-grow w-full lg:w-auto">
         {item.cartItems.map((food, index) => (
-          //   <div
-          //     key={index}
-          //     className="flex justify-between items-center mb-2 w-full"
-          //   >
-          //     <div className="flex flex-col">
-          //       <p className="m-0">
-          //         {food.name} <span> x {food.quantity}</span>
-          //       </p>
-          //       <p className="font-semibold">${food.price * food.quantity}</p>
-          //     </div>
-          //     <div className="hidden">
-          //       {(sum = sum + food.price * food.quantity)}
-          //     </div>
-          //   </div>
-          <>
-            <FoodStatus key={index} status={status} food={food}></FoodStatus>
+          <div
+            key={index}
+            className="flex justify-between items-center mb-2 w-full"
+          >
+            <div className="flex flex-col">
+              <p className="m-0">
+                {food.name} <span> x {food.quantity}</span>
+              </p>
+              <p className="font-semibold">${food.price * food.quantity}</p>
+            </div>
             <div className="hidden">
               {(sum = sum + food.price * food.quantity)}
             </div>
-          </>
+          </div>
         ))}
       </div>
       <div className="flex flex-col items-end w-full lg:w-auto">
