@@ -1,6 +1,6 @@
 import { SyncLoader } from 'react-spinners'
 
-const Loader = () => {
+const Loader = ({size =25}) => {
   return (
     <div
       className='
@@ -11,7 +11,7 @@ const Loader = () => {
       items-center 
     '
     >
-      <SyncLoader size={25} color='tomato' />
+      <SyncLoader size={size} color='tomato' />
     </div>
   )
 }

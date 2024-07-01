@@ -6,6 +6,7 @@ import { addFood } from "../../../api/food";
 import toast from "react-hot-toast";
 import { ImSpinner9 } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../../Components/Shared/Loader/Loader";
 
 const AddFood = () => {
   const [loading, setLoading] = useState(false);
@@ -14,10 +15,12 @@ const AddFood = () => {
   const navigate = useNavigate()
 
   const handleImageChange = (image) => {
+    setLoading(true)
     console.log(image);
     setUploadText(image.name);
     imageUpload(image).then((data) => {
       setUploadImageURL(data.data.display_url);
+      setLoading(false)
     });
   };
 
@@ -64,11 +67,11 @@ const AddFood = () => {
               className="hidden w-1/2"
               required
             />
-            {uploadText ? (
+            {loading ?<Loader size={15}></Loader>:<>{uploadText ? (
               <img className="w-full" src={uploadImageURL} alt=""></img>
             ) : (
               <img className="w-full" src={uploadImage} alt="" />
-            )}
+            )}</>}
           </label>
         </div>
         <div className="mt-6 w-full">
