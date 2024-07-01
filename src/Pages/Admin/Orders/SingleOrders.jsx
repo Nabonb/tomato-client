@@ -22,29 +22,43 @@ const SingleOrders = ({ item }) => {
   }, [item.status]);
 
   return (
-    <div className="border-2 border-orange-500 flex flex-col lg:flex-row gap-4 items-center mb-4 p-4 w-full">
+    <div className="border-2 border-orange-500 flex flex-col lg:flex-row gap-4 mb-4 p-4 w-full">
       <img src={assets.parcel_icon} alt="" className="w-12 h-12" />
-      <div className="flex-grow w-full lg:w-auto">
-        {item.cartItems.map((food, index) => (
-          <div
-            key={index}
-            className="flex justify-between items-center mb-2 w-full"
-          >
-            <div className="flex flex-col">
-              <p className="m-0">
-                {food.name} <span> x {food.quantity}</span>
-              </p>
-              <p className="font-semibold">${food.price * food.quantity}</p>
+
+      <div className="flex-grow w-full lg:w-auto lg:flex lg:justify-between">
+        <div className="flex-grow w-full lg:w-1/2">
+          {item.cartItems.map((food, index) => (
+            <div
+              key={index}
+              className="flex justify-between items-center mb-2 w-full"
+            >
+              <div className="flex flex-col">
+                <p className="m-0">
+                  {food.name} <span> x {food.quantity}</span>
+                </p>
+                <p className="font-semibold">${food.price * food.quantity}</p>
+              </div>
+              <div className="hidden">
+                {(sum = sum + food.price * food.quantity)}
+              </div>
             </div>
-            <div className="hidden">
-              {(sum = sum + food.price * food.quantity)}
-            </div>
-          </div>
-        ))}
+          ))}
+          <p className="font-bold">Items: {item.cartItems.length}</p>
+          <p className="font-bold">Total = ${sum}</p>
+        </div>
+
+        <div className="flex-grow w-full lg:w-1/2 mt-4 lg:mt-0 lg:pl-4">
+          <p className="font-bold">First Name: {item.firstName}</p>
+          <p className="font-bold">Last Name: {item.lastName}</p>
+          <p className="font-bold">Address: {item.address}</p>
+          <p className="font-bold">City: {item.city}</p>
+          <p className="font-bold">Zip Code: {item.zipCode}</p>
+          <p className="font-bold">Country: {item.country}</p>
+          <p className="font-bold">Phone No: {item.phoneNumber}</p>
+        </div>
       </div>
-      <div className="flex flex-col items-end w-full lg:w-auto">
-        <p className="m-3 font-bold">Items: {item.cartItems.length}</p>
-        <p className="m-3 font-bold">Total = ${sum}</p>
+
+      <div className="w-full lg:w-auto mt-4 lg:mt-0 flex justify-end lg:items-start">
         <div className="relative inline-block w-full lg:w-auto">
           <select
             value={status}

@@ -9,7 +9,7 @@ const TopDishes = () => {
   const category = params.get("category");
   const [foods, setFoods] = useState([]);
 
-
+console.log(foods)
   useEffect(() => {
     getAllFood().then(foodList=>{
     if (category) {
