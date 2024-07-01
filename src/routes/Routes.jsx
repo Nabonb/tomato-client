@@ -11,6 +11,7 @@ import FoodList from "../Pages/Admin/FoodList/FoodList";
 import Success from "../Components/Success/Success";
 import Cancel from "../Components/Cancel/Cancel";
 import Orders from "../Pages/Admin/Orders/Orders";
+import PrivateRoute from '../routes/PrivateRoute'
 
 export const router = createBrowserRouter([
   {
@@ -31,7 +32,7 @@ export const router = createBrowserRouter([
       },
       {
         path:'/success',
-        element:<Success></Success>
+        element:<PrivateRoute><Success></Success></PrivateRoute>
       },
       {
         path:'/cancel',
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout></DashboardLayout>,
+    element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
     children: [
       {
         path: "/dashboard/add-food",

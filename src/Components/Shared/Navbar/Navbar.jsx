@@ -121,7 +121,7 @@ const Navbar = () => {
                       >
                         Dashboard
                       </Link>}
-                      {!role && <div className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"><Link to="/success">Orders</Link></div>}
+                      {!role && <Link className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer" to="/success">Orders</Link>}
                       <div
                         onClick={() => {
                           logOut();

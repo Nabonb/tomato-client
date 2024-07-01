@@ -48,7 +48,12 @@ export const orderedFood =async (details)=>{
 // Get the ordered food from the server
 export const getOrderedFood = async(email)=>{
     console.log(email)
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/orders/${email}`)
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/orders/${email}`,{
+        headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('access-token')}`,
+          },
+    })
     const data = await response.json()
     console.log(data)
     return data
@@ -56,7 +61,12 @@ export const getOrderedFood = async(email)=>{
 
 //Get the order for the admin
 export const getAdminFood = async()=>{
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/orders`) 
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/orders`,{
+        headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('access-token')}`,
+          },
+    }) 
     const data = await response.json()
     return data
 }

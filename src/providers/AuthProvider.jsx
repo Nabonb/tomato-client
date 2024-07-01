@@ -11,6 +11,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
+import axios from "axios";
 import { food_list } from "../assets/images/assets";
 import { getRole } from "../api/auth";
 import { getAllFood } from "../api/food";
@@ -138,7 +139,23 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
+      if (currentUser?.email) {
+        axios
+          .post(`${import.meta.env.VITE_API_URL}/jwt`, {
+            email: currentUser?.email,
+          })
+          .then((data) => {
+            console.log(data.data.token);
+            localStorage.setItem("access-token", data.data.token);
+            setLoading(false);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        localStorage.removeItem("access-token");
+        setLoading(false);
+      }
     });
     return () => {
       return unsubscribe();

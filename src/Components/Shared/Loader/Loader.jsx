@@ -1,4 +1,4 @@
-import { DotLoader } from 'react-spinners'
+import { SyncLoader } from 'react-spinners'
 
 const Loader = () => {
   return (
@@ -11,7 +11,7 @@ const Loader = () => {
       items-center 
     '
     >
-      <DotLoader size={100} color='red' />
+      <SyncLoader size={25} color='tomato' />
     </div>
   )
 }

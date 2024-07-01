@@ -9,16 +9,17 @@ const Orders = () => {
   
     useEffect(() => {
       getAdminFood().then((data) => {
+        console.log(data)
         setOrderedFood(data);
       });
     }, [user]);
-    // console.log(orderedFood);
+    console.log(orderedFood);
   
     return (
       <div>
         <h1 className="text-2xl font-bold m-4">All Orders</h1>
         <div>
-          {orderedFood.map((order,index) => (
+          {orderedFood?.map((order,index) => (
             <SingleOrders key={index} item={order}></SingleOrders>
             )
           )}
